@@ -1,0 +1,131 @@
+@font-face
+{
+    font-family: 'Akzidenz-Grotesk BQ';
+    src: url('font/AkzidenzGroteskBQ-Cnd.ttf') format('truetype');
+}
+
+@font-face
+{
+    font-family: 'Roboto-Bold';
+    src: url('font/Roboto-Bold.ttf') format('truetype');
+}
+
+@font-face
+{
+    font-family: 'Roboto-Regular';
+    src: url('font/Roboto-Regular.ttf') format('truetype');
+}
+
+.body
+{
+    background-color:#100f0f;
+}
+
+.logo
+{
+    font-family:"Akzidenz-Grotesk BQ";
+    font-weight: bold;
+    font-size: 3rem;
+}
+
+.title
+{
+    font-family:"Roboto-Bold";
+}
+
+.font
+{
+    font-family:"Roboto-Regular";
+}
+
+.text
+{
+   color: #efefef;
+}
+
+.amount
+{
+    margin-bottom: 7rem;
+}
+
+.amount:hover
+{
+    color:#1fc36c;
+}
+
+.spacing
+{
+    height: 10rem;
+}
+
+.logo-coin
+{
+    width: auto;
+    height: 3rem;
+    margin-right: 1rem;
+}
+
+.simple-arrow-down, .double-arrows
+{
+    width: auto;
+    height: 2rem;
+}
+
+.simple-arrow-up, .equal
+{
+    width: 2rem;
+    height: auto;
+}
+
+.mlBtc
+{
+    margin-left: 25rem;
+}
+
+.mlEtc
+{
+    margin-left: 23.4rem;
+}
+
+.mlXrp
+{
+    margin-left: 25.4rem;
+}
+
+.cross
+{
+    margin-left: 1rem;
+}
+
+.buttonAdd
+{
+    height: 4rem;
+    margin-top: 22rem;
+}
+
+.buttonRemove
+{
+    height: 4rem;
+    margin-top: 24rem;
+}
+
+.icon
+{
+    font-family:Roboto-Regular, FontAwesome;
+}
+
+.refresh
+{
+    border: none;
+    background: none;
+}
+
+.txtBtn
+{
+    color: #100f0f;
+}
+
+.txtBtn:hover
+{
+    color:#1fc36c;
+}
