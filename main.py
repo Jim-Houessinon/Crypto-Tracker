@@ -43,10 +43,10 @@ yXrp = []
 async def recupValueDay():
     try:
         with connect(
-            host="localhost",
-            user="root",
-            password="",
-            database="daily_value",
+            host="j5zntocs2dn6c3fj.chr7pe7iynqr.eu-west-1.rds.amazonaws.com",
+            user="zn4ssay8kv019vdj",
+            password="xktfzs1n6lud4ith",
+            database="jfhqjvw2yw2b6kw1",
         ) as connection:
             crypto = ["bitcoin", "ethereum", "ripple"]
             
@@ -86,10 +86,10 @@ async def recupValueDay():
 async def recupGraphic():
     try:
         with connect(
-            host="localhost",
-            user="root",
-            password="",
-            database="daily_value",
+            host="j5zntocs2dn6c3fj.chr7pe7iynqr.eu-west-1.rds.amazonaws.com",
+            user="zn4ssay8kv019vdj",
+            password="xktfzs1n6lud4ith",
+            database="jfhqjvw2yw2b6kw1",
         ) as connection:
             crypto = ["bitcoin", "ethereum", "ripple"]
             
@@ -130,10 +130,10 @@ async def recupGraphic():
 async def sumCryptoBdd():
     try:
         with connect(
-            host="localhost",
-            user="root",
-            password="",
-            database="daily_value",
+            host="j5zntocs2dn6c3fj.chr7pe7iynqr.eu-west-1.rds.amazonaws.com",
+            user="zn4ssay8kv019vdj",
+            password="xktfzs1n6lud4ith",
+            database="jfhqjvw2yw2b6kw1",
         ) as connection:
             crypto = ["bitcoin", "ethereum", "ripple"]
          
@@ -230,10 +230,10 @@ async def sumCryptoBdd():
 async def recupValueYesterday():
     try:
         with connect(
-            host="localhost",
-            user="root",
-            password="",
-            database="daily_value",
+            host="j5zntocs2dn6c3fj.chr7pe7iynqr.eu-west-1.rds.amazonaws.com",
+            user="zn4ssay8kv019vdj",
+            password="xktfzs1n6lud4ith",
+            database="jfhqjvw2yw2b6kw1",
         ) as connection:
             crypto = ["bitcoin", "ethereum", "ripple"]
          
@@ -304,10 +304,10 @@ async def recordValue(amount, id, crypto):
         price = data["data"]["quote"]["EUR"]["price"]
           
         with connect(
-          host="localhost",
-          user="root",
-          password="",
-          database="daily_value",
+            host="j5zntocs2dn6c3fj.chr7pe7iynqr.eu-west-1.rds.amazonaws.com",
+            user="zn4ssay8kv019vdj",
+            password="xktfzs1n6lud4ith",
+            database="jfhqjvw2yw2b6kw1",
         ) as connection:
             insert = "INSERT INTO "+crypto+" (price) VALUES ('"+str(price)+"');"
             with connection.cursor() as cursor:
@@ -380,10 +380,10 @@ async def addBdd(quantity, id, crypto):
                 print("Un problème est survenu lors de la récupération du prix")
     try:
         with connect(
-            host="localhost",
-            user="root",
-            password="",
-            database="daily_value",
+            host="j5zntocs2dn6c3fj.chr7pe7iynqr.eu-west-1.rds.amazonaws.com",
+            user="zn4ssay8kv019vdj",
+            password="xktfzs1n6lud4ith",
+            database="jfhqjvw2yw2b6kw1",
         ) as connection:
             insert = "INSERT INTO "+crypto+" (quantity, price) VALUES ('"+quantity+"', '"+str(price)+"');"
             with connection.cursor() as cursor:
@@ -403,10 +403,10 @@ async def removeBdd(id, crypto, quantity):
     
     try:
         with connect(
-            host="localhost",
-            user="root",
-            password="",
-            database="daily_value",
+            host="j5zntocs2dn6c3fj.chr7pe7iynqr.eu-west-1.rds.amazonaws.com",
+            user="zn4ssay8kv019vdj",
+            password="xktfzs1n6lud4ith",
+            database="jfhqjvw2yw2b6kw1",
         ) as connection:
             
             verif = "SELECT SUM(quantity) FROM "+crypto+";"
