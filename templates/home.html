@@ -1,0 +1,104 @@
+<!Doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>Crypto Tracker</title>
+        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename ='style.css')}}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    </head>
+    <body class="body">
+        <div class="row mt-4 vw-100">
+            <h1 class="logo text-center text col-4 mx-4">Crypto Tracker</h1>
+            <div class="col-4 mx-3"></div>
+            <a class="col-1 mx-3 mt-2" href="remove" alt="ajouter"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50"
+                viewBox="0 0 172 172" style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none"
+                font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z"
+                fill="none"></path><g fill="#ffffff"><path d="M131.96744,14.33333c-1.83376,0 -3.66956,0.69853 -5.06706,2.09961l-12.23372,
+                12.23372l28.66667,28.66667l12.23372,-12.23372c2.80217,-2.80217 2.80217,-7.33911 0,-10.13412l-18.53255,-18.53255c-1.40108,
+                -1.40108 -3.23329,-2.09961 -5.06706,-2.09961zM103.91667,39.41667l-82.41667,82.41667v28.66667h28.66667l82.41667,-82.41667z">
+                </path></g></g></svg>
+            </a>
+            <a class="col-1 mx-3 mt-2" href="add" alt="ajouter"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                width="60" height="60" viewBox="0 0 226 226" style=" fill:#000000;">
+                <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+                font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                <path d="M0,226v-226h226v226z" fill="none"></path><g fill="#ffffff"><path
+                d="M103.96,40.68v63.28h-63.28v18.08h63.28v63.28h18.08v-63.28h63.28v-18.08h-63.28v-63.28z"></path></g></g></svg>
+            </a>
+        </div>
+        <div class="spacing"></div>
+        <div class="row text-center vw-100">
+            <div class="col-4 title text display-4"><p>Ethereum</p></div>
+            <div class="col-4 title text display-4"><p>Bitcoin</p></div>
+            <div class="col-4 title text display-4"><p>Ripple</p></div>
+            <div class="col-4">
+                <p class="title text amount display-1 mx-3"><a class="amount text-decoration-none text" href="preview_graph_etc">
+                    {%if sumEthereumBdd > 0%}
+                        +
+                    {%endif%}
+                    {{sumEthereumBdd}} €</a></p>
+            </div>
+            <div class="col-4">
+                <p class="title text amount display-1"><a class="amount text-decoration-none text" href="preview_graph_btc">
+                    {%if sumBitcoinBdd > 0%}
+                        +
+                    {%endif%}
+                    {{sumBitcoinBdd}} €</a></p>
+            </div>
+            <div class="col-4">
+                <p class="title text amount display-1 mx-3"><a class="amount text-decoration-none text" href="preview_graph_xrp">
+                    {%if sumRippleBdd > 0%}
+                        +
+                    {%endif%}
+                    {{sumRippleBdd}} €</a></p>
+            </div>
+        </div>
+        <table class="table">
+            <tbody class="text title">
+                <tr class="d-flex justify-content-center">
+                    {%if tendencyBtc >= 0 and tendencyBtc < 1%}
+                        <td class="h1 d-flex align-items-center"><img class="logo-coin" src="{{url_for('static', filename='/pictures/bitcoin.png')}}"/>BTC<p class="font h4 mx-2 my-4">(Bitcoin)</p><img class="equal mlBtc" src="{{url_for('static', filename='/pictures/equal.png')}}"/></td>
+                    {%elif tendencyBtc >= 1 and tendencyBtc < 2%}
+                        <td class="h1 d-flex align-items-center"><img class="logo-coin" src="{{url_for('static', filename='/pictures/bitcoin.png')}}"/>BTC<p class="font h4 mx-2 my-4">(Bitcoin)</p><img class="simple-arrow-up mlBtc" src="{{url_for('static', filename='/pictures/simple-arrow-up.png')}}"/></td>
+                    {%elif tendencyBtc >= 2%}
+                        <td class="h1 d-flex align-items-center"><img class="logo-coin" src="{{url_for('static', filename='/pictures/bitcoin.png')}}"/>BTC<p class="font h4 mx-2 my-4">(Bitcoin)</p><img class="double-arrows mlBtc" src="{{url_for('static', filename='/pictures/double-arrows-up.png')}}"/></td>
+                    {%elif tendencyBtc < 0 and tendencyBtc > -1%}
+                        <td class="h1 d-flex align-items-center"><img class="logo-coin" src="{{url_for('static', filename='/pictures/bitcoin.png')}}"/>BTC<p class="font h4 mx-2 my-4">(Bitcoin)</p><img class="simple-arrow-down mlBtc" src="{{url_for('static', filename='/pictures/simple-arrow-down.png')}}"/></td>
+                    {%elif tendencyBtc < -1%}
+                        <td class="h1 d-flex align-items-center"><img class="logo-coin" src="{{url_for('static', filename='/pictures/bitcoin.png')}}"/>BTC<p class="font h4 mx-2 my-4">(Bitcoin)</p><img class="double-arrows mlBtc" src="{{url_for('static', filename='/pictures/double-arrows-down.png')}}"/></td>
+                    {%endif%}
+                </tr>
+                <tr class="d-flex justify-content-center">
+                    {%if tendencyEtc >= 0 and tendencyEtc < 1%}
+                        <td class="h1 d-flex align-items-center"><img class="logo-coin" src="{{url_for('static', filename='/pictures/ethereum.png')}}"/>ETC<p class="font h4 mx-2 my-4">(Ethereum)</p><img class="equal mlEtc" src="{{url_for('static', filename='/pictures/equal.png')}}"/></td>
+                    {%elif tendencyEtc >= 1 and tendencyEtc < 2%}
+                        <td class="h1 d-flex align-items-center"><img class="logo-coin" src="{{url_for('static', filename='/pictures/ethereum.png')}}"/>ETC<p class="font h4 mx-2 my-4">(Ethereum)</p><img class="simple-arrow-up mlEtc" src="{{url_for('static', filename='/pictures/simple-arrow-up.png')}}"/></td>
+                    {%elif tendencyEtc >= 2%}
+                        <td class="h1 d-flex align-items-center"><img class="logo-coin" src="{{url_for('static', filename='/pictures/ethereum.png')}}"/>ETC<p class="font h4 mx-2 my-4">(Ethereum)</p><img class="double-arrows mlEtc" src="{{url_for('static', filename='/pictures/double-arrows-up.png')}}"/></td>
+                    {%elif tendencyEtc < 0 and tendencyEtc > -1%}
+                        <td class="h1 d-flex align-items-center"><img class="logo-coin" src="{{url_for('static', filename='/pictures/ethereum.png')}}"/>ETC<p class="font h4 mx-2 my-4">(Ethereum)</p><img class="simple-arrow-down mlEtc" src="{{url_for('static', filename='/pictures/simple-arrow-down.png')}}"/></td>
+                    {%elif tendencyEtc < -1%}
+                        <td class="h1 d-flex align-items-center"><img class="logo-coin" src="{{url_for('static', filename='/pictures/ethereum.png')}}"/>ETC<p class="font h4 mx-2 my-4">(Ethereum)</p><img class="double-arrows mlEtc" src="{{url_for('static', filename='/pictures/double-arrows-down.png')}}"/></td>
+                    {%endif%}
+                </tr>
+                <tr class="d-flex justify-content-center">
+                    {%if tendencyXrp >= 0 and tendencyXrp < 1%}
+                        <td class="h1 d-flex align-items-center"><img class="logo-coin" src="{{url_for('static', filename='/pictures/ripple.png')}}"/>XRP<p class="font h4 mx-2 my-4">(Ripple)</p><img class="equal mlXrp" src="{{url_for('static', filename='/pictures/equal.png')}}"/></td>
+                    {%elif tendencyXrp >= 1 and tendencyXrp< 2%}
+                        <td class="h1 d-flex align-items-center"><img class="logo-coin" src="{{url_for('static', filename='/pictures/ripple.png')}}"/>XRP<p class="font h4 mx-2 my-4">(Ripple)</p><img class="simple-arrow-up mlXrp" src="{{url_for('static', filename='/pictures/simple-arrow-up.png')}}"/></td>
+                    {%elif tendencyXrp >= 2%}
+                        <td class="h1 d-flex align-items-center"><img class="logo-coin" src="{{url_for('static', filename='/pictures/ripple.png')}}"/>XRP<p class="font h4 mx-2 my-4">(Ripple)</p><img class="double-arrows mlXrp" src="{{url_for('static', filename='/pictures/double-arrows-up.png')}}"/></td>
+                    {%elif tendencyXrp < 0 and tendencyXrp > -1%}
+                        <td class="h1 d-flex align-items-center"><img class="logo-coin" src="{{url_for('static', filename='/pictures/ripple.png')}}"/>XRP<p class="font h4 mx-2 my-4">(Ripple)</p><img class="simple-arrow-down mlXrp" src="{{url_for('static', filename='/pictures/simple-arrow-down.png')}}"/></td>
+                    {%elif tendencyXrp < -1%}
+                        <td class="h1 d-flex align-items-center"><img class="logo-coin" src="{{url_for('static', filename='/pictures/ripple.png')}}"/>XRP<p class="font h4 mx-2 my-4">(Ripple)</p><img class="double-arrows mlXrp" src="{{url_for('static', filename='/pictures/double-arrows-down.png')}}"/></td>
+                    {%endif%}
+                </tr>
+            </tbody>
+        </table>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    </body>
+</html>
