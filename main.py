@@ -101,7 +101,7 @@ async def recupGraphic():
             global yXrp 
             
             for value in crypto:
-                verif = "SELECT price, date FROM "+value+" WHERE date BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY) AND CURRENT_DATE() AND quantity IS NULL;"
+                verif = "SELECT price, date FROM "+value+" WHERE date BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 31 DAY) AND CURRENT_DATE() AND quantity IS NULL;"
                 with connection.cursor() as cursor:
                     cursor.execute(verif)
                     data = cursor.fetchall()
