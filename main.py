@@ -517,14 +517,16 @@ async def testRemove():
 @app.route("/preview_graph_btc")
 async def preview_graph_btc():
 
+    global xBtc
+    global yBtc
+    xBtc = []
+    yBtc = []
+    
     await recupGraphic()
 
     plt.title('Vos gains', fontsize=20, fontweight='bold', color='white')
-    plt.xlabel('Date', fontsize=13, fontweight='bold', color='white')
-    plt.ylabel('€', fontsize=13, fontweight='bold', color='white')
     plt.tick_params(colors='white')
     plt.plot(xBtc,yBtc, c = 'g', label="croissance")
-    plt.axis([1, 31, 30000, 50000])
     plt.legend(loc="lower right")
     plt.savefig('static/graphic_btc.png', transparent = True)
     plt.close()
@@ -534,14 +536,16 @@ async def preview_graph_btc():
 @app.route("/preview_graph_etc")
 async def preview_graph_etc():
 
+    global xEtc
+    global yEtc
+    xEtc = []
+    yEtc = []
+
     await recupGraphic()
 
     plt.title('Vos gains', fontsize=20, fontweight='bold', color='white')
-    plt.xlabel('Date', fontsize=13, fontweight='bold', color='white')
-    plt.ylabel('€', fontsize=13, fontweight='bold', color='white')
     plt.tick_params(colors='white')
     plt.plot(xEtc,yEtc, c = 'g', label="croissance")
-    plt.axis([1, 31, 2500, 5000])
     plt.legend(loc="lower right")
     plt.savefig('static/graphic_etc.png', transparent = True)
     plt.close()
@@ -551,14 +555,16 @@ async def preview_graph_etc():
 @app.route("/preview_graph_xrp")
 async def preview_graph_xrp():
     
+    global xXrp
+    global yXrp
+    xXrp = []
+    yXrp = []
+    
     await recupGraphic()
 
     plt.title('Vos gains', fontsize=20, fontweight='bold', color='white')
-    plt.xlabel('Date', fontsize=13, fontweight='bold', color='white')
-    plt.ylabel('€', fontsize=13, fontweight='bold', color='white')
     plt.tick_params(colors='white')
     plt.plot(xXrp, yXrp, c = 'g', label="croissance")
-    plt.axis([1, 31, 1, 5])
     plt.legend(loc="lower right")
     plt.savefig('static/graphic_xrp.png', transparent = True)
     plt.close()
