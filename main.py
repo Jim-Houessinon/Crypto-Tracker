@@ -39,241 +39,224 @@ yEtc = []
 xXrp = []
 yXrp = []
 
-
-async def recupValueDay():
-    try:
-        with connect(
+connection = connect(
             host="j5zntocs2dn6c3fj.chr7pe7iynqr.eu-west-1.rds.amazonaws.com",
             user="zn4ssay8kv019vdj",
             password="xktfzs1n6lud4ith",
-            database="jfhqjvw2yw2b6kw1",
-        ) as connection:
-            crypto = ["bitcoin", "ethereum", "ripple"]
-            
-            global bitcoinDay
-            global ethereumDay
-            global rippleDay
-            
-            for value in crypto:
-                verif = "SELECT price FROM "+value+" where date = curdate() AND quantity IS NULL;"
-                with connection.cursor() as cursor:
-                    cursor.execute(verif)
-                    data = cursor.fetchall()
-                    if value == "bitcoin":
-                        if data:
-                            for result in data:
-                                bitcoinDay = round(result[0],2)
-                        else:
-                            bitcoinDay = await recordValue(1, 1, value)   
-                                
-                    elif value == "ethereum":
-                        if data:
-                            for result in data:
-                                ethereumDay = round(result[0],2)
-                        else:
-                            ethereumDay = await recordValue(1, 1027, value)   
+            database="jfhqjvw2yw2b6kw1"
+            )
+
+
+async def recupValueDay():
+    try:
+        crypto = ["bitcoin", "ethereum", "ripple"]
+        
+        global bitcoinDay
+        global ethereumDay
+        global rippleDay
+        
+        for value in crypto:
+            verif = "SELECT price FROM "+value+" where date = curdate() AND quantity IS NULL;"
+            with connection.cursor() as cursor:
+                cursor.execute(verif)
+                data = cursor.fetchall()
+                if value == "bitcoin":
+                    if data:
+                        for result in data:
+                            bitcoinDay = round(result[0],2)
                     else:
-                        if data:
-                            for result in data:
-                                rippleDay = round(result[0],2)
-                        else:
-                            rippleDay = await recordValue(1, 52, value)
-                              
+                        bitcoinDay = await recordValue(1, 1, value)   
+                            
+                elif value == "ethereum":
+                    if data:
+                        for result in data:
+                            ethereumDay = round(result[0],2)
+                    else:
+                        ethereumDay = await recordValue(1, 1027, value)   
+                else:
+                    if data:
+                        for result in data:
+                            rippleDay = round(result[0],2)
+                    else:
+                        rippleDay = await recordValue(1, 52, value)
+                            
     except (ConnectionError, Timeout, TooManyRedirects) as e:
         print("Un problème est survenu lors de la récupération des valeurs des crypto d'aujourd'hui sur la base de données")
 
 
 async def recupGraphic():
     try:
-        with connect(
-            host="j5zntocs2dn6c3fj.chr7pe7iynqr.eu-west-1.rds.amazonaws.com",
-            user="zn4ssay8kv019vdj",
-            password="xktfzs1n6lud4ith",
-            database="jfhqjvw2yw2b6kw1",
-        ) as connection:
-            crypto = ["bitcoin", "ethereum", "ripple"]
+        crypto = ["bitcoin", "ethereum", "ripple"]
             
-            global xBtc
-            global yBtc
-            global xEtc
-            global yEtc
-            global xXrp
-            global yXrp 
-            
-            for value in crypto:
-                verif = "SELECT price, date FROM "+value+" WHERE date BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 31 DAY) AND CURRENT_DATE() AND quantity IS NULL;"
-                with connection.cursor() as cursor:
-                    cursor.execute(verif)
-                    data = cursor.fetchall()
-                    if value == "bitcoin":
-                        if data:
-                            for result in data:
-                                xBtc.append(str(result[1])[-2:])
-                                yBtc.append(round(result[0]))
-                                
-                    elif value == "ethereum":
-                        if data:
-                            for result in data:
-                                xEtc.append(str(result[1])[-2:])
-                                yEtc.append(round(result[0]))
-                                
-                    else:
-                        if data:
-                            for result in data:
-                                xXrp.append(str(result[1])[-2:])
-                                yXrp.append(round(result[0]))
-                              
+        global xBtc
+        global yBtc
+        global xEtc
+        global yEtc
+        global xXrp
+        global yXrp 
+        
+        for value in crypto:
+            verif = "SELECT price, date FROM "+value+" WHERE date BETWEEN DATE_SUB(CURRENT_DATE(), INTERVAL 31 DAY) AND CURRENT_DATE() AND quantity IS NULL;"
+            with connection.cursor() as cursor:
+                cursor.execute(verif)
+                data = cursor.fetchall()
+                if value == "bitcoin":
+                    if data:
+                        for result in data:
+                            xBtc.append(str(result[1])[-2:])
+                            yBtc.append(round(result[0]))
+                            
+                elif value == "ethereum":
+                    if data:
+                        for result in data:
+                            xEtc.append(str(result[1])[-2:])
+                            yEtc.append(round(result[0]))
+                            
+                else:
+                    if data:
+                        for result in data:
+                            xXrp.append(str(result[1])[-2:])
+                            yXrp.append(round(result[0]))
+                            
     except (ConnectionError, Timeout, TooManyRedirects) as e:
         print("Un problème est survenu lors de la récupération des valeurs sur la base de données pour créer les graphiques")
 
 
 async def sumCryptoBdd():
     try:
-        with connect(
-            host="j5zntocs2dn6c3fj.chr7pe7iynqr.eu-west-1.rds.amazonaws.com",
-            user="zn4ssay8kv019vdj",
-            password="xktfzs1n6lud4ith",
-            database="jfhqjvw2yw2b6kw1",
-        ) as connection:
-            crypto = ["bitcoin", "ethereum", "ripple"]
+        crypto = ["bitcoin", "ethereum", "ripple"]
          
-            global sumBtcPositive
-            global sumBtcNegative
-            global sumEtcPositive
-            global sumEtcNegative
-            global sumXrpPositive
-            global sumXrpNegative
-            global sumBitcoinBdd
-            global sumEthereumBdd
-            global sumRippleBdd
-            global start
-            global add
-            global remove
+        global sumBtcPositive
+        global sumBtcNegative
+        global sumEtcPositive
+        global sumEtcNegative
+        global sumXrpPositive
+        global sumXrpNegative
+        global sumBitcoinBdd
+        global sumEthereumBdd
+        global sumRippleBdd
+        global start
+        global add
+        global remove
+        
+        for value in crypto:
+            sumCryptoPositive = "SELECT SUM(price) FROM "+value+" WHERE quantity IS NOT NULL AND QUANTITY = 1;"
+            sumCryptoNegative = "SELECT SUM(price) FROM "+value+" WHERE quantity IS NOT NULL AND QUANTITY = -1;"
             
-            for value in crypto:
-                sumCryptoPositive = "SELECT SUM(price) FROM "+value+" WHERE quantity IS NOT NULL AND QUANTITY = 1;"
-                sumCryptoNegative = "SELECT SUM(price) FROM "+value+" WHERE quantity IS NOT NULL AND QUANTITY = -1;"
-                
-                with connection.cursor() as cursor:
-                    cursor.execute(sumCryptoPositive)
-                    data = cursor.fetchall()
-              
-                if value == "bitcoin":
-                    if data:
-                        for result in data:
-                            if result[0] is not None:
-                                sumBtcPositive += result[0]
-                    else:
-                        sumBtcPositive = 0  
-                            
-                elif value == "ethereum":
-                    if data:
-                        for result in data:
-                            if result[0] is not None:
-                                sumEtcPositive += result[0]
-                    else:
-                        sumEtcPositive = 0
-                
+            with connection.cursor() as cursor:
+                cursor.execute(sumCryptoPositive)
+                data = cursor.fetchall()
+            
+            if value == "bitcoin":
+                if data:
+                    for result in data:
+                        if result[0] is not None:
+                            sumBtcPositive += result[0]
                 else:
-                    if data:
-                        for result in data:
-                            if result[0] is not None:
-                                sumXrpPositive += result[0]
-                    else:
-                        sumXrpPositive = 0
+                    sumBtcPositive = 0  
                         
-                with connection.cursor() as cursor:
-                    cursor.execute(sumCryptoNegative)
-                    data = cursor.fetchall()
+            elif value == "ethereum":
+                if data:
+                    for result in data:
+                        if result[0] is not None:
+                            sumEtcPositive += result[0]
+                else:
+                    sumEtcPositive = 0
+            
+            else:
+                if data:
+                    for result in data:
+                        if result[0] is not None:
+                            sumXrpPositive += result[0]
+                else:
+                    sumXrpPositive = 0
                     
-                if value == "bitcoin":
-                    if data:
-                        for result in data:
-                            if result[0] is not None:
-                                sumBtcNegative += result[0]
-                    else:
-                        sumBtcNegative = 0  
-                            
-                elif value == "ethereum":
-                    if data:
-                        for result in data:
-                            if result[0] is not None:
-                                sumEtcNegative += result[0]
-                    else:
-                        sumEtcNegative = 0
+            with connection.cursor() as cursor:
+                cursor.execute(sumCryptoNegative)
+                data = cursor.fetchall()
                 
+            if value == "bitcoin":
+                if data:
+                    for result in data:
+                        if result[0] is not None:
+                            sumBtcNegative += result[0]
                 else:
-                    if data:
-                        for result in data:
-                            if result[0] is not None:
-                                sumXrpNegative += result[0]
-                    else:
-                        sumXrpNegative = 0
+                    sumBtcNegative = 0  
                         
-                sumBitcoinBdd = round(sumBtcPositive - sumBtcNegative, 2)
-                sumEthereumBdd = round(sumEtcPositive - sumEtcNegative, 2)
-                sumRippleBdd = round(sumXrpPositive - sumXrpNegative, 2)
-                
-            sumBtcPositive = 0
-            sumEtcPositive = 0
-            sumXrpPositive = 0
-            sumBtcNegative = 0
-            sumEtcNegative = 0
-            sumXrpNegative = 0
-            add = False
-            remove = False
-                        
+            elif value == "ethereum":
+                if data:
+                    for result in data:
+                        if result[0] is not None:
+                            sumEtcNegative += result[0]
+                else:
+                    sumEtcNegative = 0
+            
+            else:
+                if data:
+                    for result in data:
+                        if result[0] is not None:
+                            sumXrpNegative += result[0]
+                else:
+                    sumXrpNegative = 0
+                    
+            sumBitcoinBdd = round(sumBtcPositive - sumBtcNegative, 2)
+            sumEthereumBdd = round(sumEtcPositive - sumEtcNegative, 2)
+            sumRippleBdd = round(sumXrpPositive - sumXrpNegative, 2)
+            
+        sumBtcPositive = 0
+        sumEtcPositive = 0
+        sumXrpPositive = 0
+        sumBtcNegative = 0
+        sumEtcNegative = 0
+        sumXrpNegative = 0
+        add = False
+        remove = False
+                    
     except (ConnectionError, Timeout, TooManyRedirects) as e:
         print("Un problème est survenu lors de la récupération des sommes des crypto à la base de données")
         
         
 async def recupValueYesterday():
     try:
-        with connect(
-            host="j5zntocs2dn6c3fj.chr7pe7iynqr.eu-west-1.rds.amazonaws.com",
-            user="zn4ssay8kv019vdj",
-            password="xktfzs1n6lud4ith",
-            database="jfhqjvw2yw2b6kw1",
-        ) as connection:
-            crypto = ["bitcoin", "ethereum", "ripple"]
-         
-            global bitcoinYesterday
-            global ethereumYesterday
-            global rippleYesterday
-            
-            for value in crypto:
-                sum = "SELECT price from "+value+" where date = DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY) AND quantity IS NULL;"
-                with connection.cursor() as cursor:
-                    cursor.execute(sum)
-                    data = cursor.fetchall()
-              
-                if value == "bitcoin":
-                    if data:
-                        for result in data:
-                            if result[0] is not None:
-                                bitcoinYesterday = round(result[0],2)
-                    else:
-                        getcontext().prec = 12
-                        bitcoinYesterday = Decimal(0)  
-                            
-                elif value == "ethereum":
-                    if data:
-                        for result in data:
-                            if result[0] is not None:
-                                ethereumYesterday = round(result[0],2)
-                    else:
-                        getcontext().prec = 12
-                        ethereumYesterday = Decimal(0)  
-                
-                else:
-                    if data:
-                        for result in data:
-                            if result[0] is not None:
-                                rippleYesterday = round(result[0],2)
-                    else:
-                        getcontext().prec = 12
-                        rippleYesterday = Decimal(0)         
+        crypto = ["bitcoin", "ethereum", "ripple"]
         
+        global bitcoinYesterday
+        global ethereumYesterday
+        global rippleYesterday
+        
+        for value in crypto:
+            sum = "SELECT price from "+value+" where date = DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY) AND quantity IS NULL;"
+            with connection.cursor() as cursor:
+                cursor.execute(sum)
+                data = cursor.fetchall()
+            
+            if value == "bitcoin":
+                if data:
+                    for result in data:
+                        if result[0] is not None:
+                            bitcoinYesterday = round(result[0],2)
+                else:
+                    getcontext().prec = 12
+                    bitcoinYesterday = Decimal(0)  
+                        
+            elif value == "ethereum":
+                if data:
+                    for result in data:
+                        if result[0] is not None:
+                            ethereumYesterday = round(result[0],2)
+                else:
+                    getcontext().prec = 12
+                    ethereumYesterday = Decimal(0)  
+            
+            else:
+                if data:
+                    for result in data:
+                        if result[0] is not None:
+                            rippleYesterday = round(result[0],2)
+                else:
+                    getcontext().prec = 12
+                    rippleYesterday = Decimal(0)         
+    
     except (ConnectionError, Timeout, TooManyRedirects) as e:
         print("Un problème est survenu lors de la récupération des valeurs des crypto d'hier sur la base de données")
         
@@ -303,16 +286,10 @@ async def recordValue(amount, id, crypto):
         
         price = data["data"]["quote"]["EUR"]["price"]
           
-        with connect(
-            host="j5zntocs2dn6c3fj.chr7pe7iynqr.eu-west-1.rds.amazonaws.com",
-            user="zn4ssay8kv019vdj",
-            password="xktfzs1n6lud4ith",
-            database="jfhqjvw2yw2b6kw1",
-        ) as connection:
-            insert = "INSERT INTO "+crypto+" (price) VALUES ('"+str(price)+"');"
-            with connection.cursor() as cursor:
-              cursor.execute(insert)
-              connection.commit()
+        insert = "INSERT INTO "+crypto+" (price) VALUES ('"+str(price)+"');"
+        with connection.cursor() as cursor:
+            cursor.execute(insert)
+            connection.commit()
         
       except (ConnectionError, Timeout, TooManyRedirects) as e:
         print("Un problème est survenu lors de l'implémentation du prix")
@@ -379,19 +356,13 @@ async def addBdd(quantity, id, crypto):
             except (ConnectionError, Timeout, TooManyRedirects) as e:
                 print("Un problème est survenu lors de la récupération du prix")
     try:
-        with connect(
-            host="j5zntocs2dn6c3fj.chr7pe7iynqr.eu-west-1.rds.amazonaws.com",
-            user="zn4ssay8kv019vdj",
-            password="xktfzs1n6lud4ith",
-            database="jfhqjvw2yw2b6kw1",
-        ) as connection:
-            insert = "INSERT INTO "+crypto+" (quantity, price) VALUES ('"+quantity+"', '"+str(price)+"');"
-            with connection.cursor() as cursor:
-                cursor.execute(insert)
-                connection.commit()
-                
-                global add
-                add = True
+        insert = "INSERT INTO "+crypto+" (quantity, price) VALUES ('"+quantity+"', '"+str(price)+"');"
+        with connection.cursor() as cursor:
+            cursor.execute(insert)
+            connection.commit()
+            
+            global add
+            add = True
         
     except (ConnectionError, Timeout, TooManyRedirects) as e:
         print("Un problème est survenu lors de l'ajout à la base de données")
@@ -402,26 +373,19 @@ async def removeBdd(id, crypto, quantity):
     price = await convert(quantity, id)
     
     try:
-        with connect(
-            host="j5zntocs2dn6c3fj.chr7pe7iynqr.eu-west-1.rds.amazonaws.com",
-            user="zn4ssay8kv019vdj",
-            password="xktfzs1n6lud4ith",
-            database="jfhqjvw2yw2b6kw1",
-        ) as connection:
-            
-            verif = "SELECT SUM(quantity) FROM "+crypto+";"
-    
-            with connection.cursor() as cursor:
-                cursor.execute(verif)
-                verif = cursor.fetchall()
-                for result in verif:
-                    if result[0] is not None and int(result[0]) > 0:
-                        delete = "INSERT INTO "+crypto+" (price, quantity) VALUES ('"+str(price)+"', '-"+quantity+"');"
-                        cursor.execute(delete)
-                        connection.commit()
-                        
-                        global remove
-                        remove = True
+        verif = "SELECT SUM(quantity) FROM "+crypto+";"
+
+        with connection.cursor() as cursor:
+            cursor.execute(verif)
+            verif = cursor.fetchall()
+            for result in verif:
+                if result[0] is not None and int(result[0]) > 0:
+                    delete = "INSERT INTO "+crypto+" (price, quantity) VALUES ('"+str(price)+"', '-"+quantity+"');"
+                    cursor.execute(delete)
+                    connection.commit()
+                    
+                    global remove
+                    remove = True
                         
     except (ConnectionError, Timeout, TooManyRedirects) as e:
         print("Un problème est survenu lors de la suppression de la quantitée du crypto sur la base de données")            
