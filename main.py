@@ -43,7 +43,7 @@ connection = connect(
             host="j5zntocs2dn6c3fj.chr7pe7iynqr.eu-west-1.rds.amazonaws.com",
             user="zn4ssay8kv019vdj",
             password="xktfzs1n6lud4ith",
-            database="jfhqjvw2yw2b6kw1"
+            database="jfhqjvw2yw2b6kw1",
             )
 
 
