@@ -7,6 +7,7 @@ from flask.templating import render_template
 from mysql.connector import connect
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 from decimal import *
+import os
 
 
 app = Flask(__name__)
@@ -39,12 +40,10 @@ yEtc = []
 xXrp = []
 yXrp = []
 
-connection = connect(
-            host="j5zntocs2dn6c3fj.chr7pe7iynqr.eu-west-1.rds.amazonaws.com",
-            user="zn4ssay8kv019vdj",
-            password="xktfzs1n6lud4ith",
-            database="jfhqjvw2yw2b6kw1",
-            )
+connection = connect(host=os.environ["connect_host"],
+                     user=os.environ["connect_user"],
+                     password=os.environ["connect_password"],
+                     database=os.environ["connect_database"])
 
 
 async def recupValueDay():
