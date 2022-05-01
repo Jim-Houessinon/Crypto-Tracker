@@ -489,6 +489,7 @@ async def preview_graph_btc():
 
     plt.title('Vos gains', fontsize=20, fontweight='bold', color='white')
     plt.tick_params(colors='white')
+    plt.xticks(rotation=90)
     plt.plot(xBtc,yBtc, c = 'g', label="croissance")
     plt.legend(loc="lower right")
     plt.savefig('static/graphic_btc.png', transparent = True)
