@@ -509,6 +509,7 @@ async def preview_graph_etc():
 
     plt.title('Vos gains', fontsize=20, fontweight='bold', color='white')
     plt.tick_params(colors='white')
+    plt.xticks(rotation=90)
     plt.plot(xEtc,yEtc, c = 'g', label="croissance")
     plt.legend(loc="lower right")
     plt.savefig('static/graphic_etc.png', transparent = True)
@@ -528,6 +529,7 @@ async def preview_graph_xrp():
 
     plt.title('Vos gains', fontsize=20, fontweight='bold', color='white')
     plt.tick_params(colors='white')
+    plt.xticks(rotation=90)
     plt.plot(xXrp, yXrp, c = 'g', label="croissance")
     plt.legend(loc="lower right")
     plt.savefig('static/graphic_xrp.png', transparent = True)
