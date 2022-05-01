@@ -102,19 +102,19 @@ async def recupGraphic():
                 if value == "bitcoin":
                     if data:
                         for result in data:
-                            xBtc.append(str(result[1])[-2:])
+                            xBtc.append(str(result[1])[-2:]+"/"+str(result[1])[5:7])
                             yBtc.append(round(result[0]))
                             
                 elif value == "ethereum":
                     if data:
                         for result in data:
-                            xEtc.append(str(result[1])[-2:])
+                            xEtc.append(str(result[1])[-2:]+"/"+str(result[1])[5:7])
                             yEtc.append(round(result[0]))
                             
                 else:
                     if data:
                         for result in data:
-                            xXrp.append(str(result[1])[-2:])
+                            xXrp.append(str(result[1])[-2:]+"/"+str(result[1])[5:7])
                             yXrp.append(round(result[0]))
                             
     except (ConnectionError, Timeout, TooManyRedirects) as e:
